@@ -18,7 +18,8 @@ FROM golang:1.25-alpine AS go-builder
 RUN apk add --no-cache gcc musl-dev
 COPY . /app
 WORKDIR /app
-COPY --from=node-builder /app/build /app/build
+COPY --from=node-builder /app/internal/build /app/internal/build
+COPY --from=node-builder /app/internal/common /app/internal/common
 RUN go mod download
 RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -tags production -o primo main.go
 
