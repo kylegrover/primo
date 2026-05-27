@@ -1,5 +1,6 @@
 FROM --platform=$BUILDPLATFORM node:22-alpine AS node-builder
-
+# override coolify, we need dev deps for svelte-kit
+ENV NODE_ENV=development 
 # Copy all the files that are not in .dockerignore
 COPY . /app
 WORKDIR /app
