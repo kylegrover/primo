@@ -5,7 +5,7 @@ COPY . /app
 WORKDIR /app
 
 # Build frontend
-RUN npm install
+RUN npm install --include=dev --legacy-peer-deps
 RUN npx svelte-kit sync
 RUN npx vite --config common.config.js build
 RUN npx vite --config app.config.js build
