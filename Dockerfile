@@ -6,8 +6,8 @@ WORKDIR /app
 # force development mode inside the container stage
 ENV NODE_ENV=development
 
-# bypass the Tiptap version mismatch
-RUN npm install --legacy-peer-deps
+# install with dev deps and peer conflicts
+RUN npm ci --include=dev --legacy-peer-deps
 
 RUN npx svelte-kit sync
 RUN npx vite --config common.config.js build
