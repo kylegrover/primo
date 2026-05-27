@@ -15,7 +15,7 @@ RUN npx vite --config app.config.js build
 
 # build backend
 FROM golang:1.25-alpine AS go-builder
-RUN apk add --no-short-logs --no-cache gcc musl-dev
+RUN apk add --no-cache gcc musl-dev
 COPY . /app
 WORKDIR /app
 COPY --from=node-builder /app/build /app/build
@@ -24,7 +24,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -tags production -o primo
 
 # Production image
 FROM alpine:3 AS runtime
-RUN apk add --no-short-logs --no-cache tzdata
+RUN apk add --no-cache tzdata
 WORKDIR /app
 COPY --from=go-builder /app/primo /app/primo
 
